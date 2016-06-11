@@ -3,18 +3,17 @@ from os.path import isfile, join
 import numpy as np
 import csv
 
+
 class Pyboolnet(object):
     def __init__(self, data_path):
-        self.names = [n for n in listdir(data_path) if isfile(join(data_path, n))]
-
-
+        self.names = [n[:-4] for n in listdir(data_path) if isfile(join(data_path, n))]
 
         self.nodes = [Node(data_path,n) for n in self.names]        
             
 class Node(object):
     def __init__(self, data_path, name):
         self.name = name
-        f_path =data_path+"/"+name
+        f_path =data_path+"/"+name+".csv"
         self.neighbors = np.genfromtxt(f_path,
                                         skip_header=0,
                                         delimiter=' ',
